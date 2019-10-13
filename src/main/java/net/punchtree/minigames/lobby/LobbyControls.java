@@ -24,7 +24,7 @@ public class LobbyControls implements Listener {
 	private static final ItemStack LEAVE_LOBBY;
 	static {
 		//Initializing the item meta for READY_BLOCK
-		READY_BLOCK = new ItemStack(Material.GREEN_TERRACOTTA);
+		READY_BLOCK = new ItemStack(Material.GREEN_CONCRETE);
 		ItemMeta im = READY_BLOCK.getItemMeta();
 		im.setDisplayName(ChatColor.GREEN + "" + ChatColor.ITALIC + "READY");
 		im.setLore(Arrays.asList(ChatColor.GRAY + "Right click if you're",
@@ -32,7 +32,7 @@ public class LobbyControls implements Listener {
 		READY_BLOCK.setItemMeta(im);
 		
 		//Initializing the item meta for NOT_READY_BLOCK
-		NOT_READY_BLOCK = new ItemStack(Material.RED_TERRACOTTA);
+		NOT_READY_BLOCK = new ItemStack(Material.RED_CONCRETE);
 		im = NOT_READY_BLOCK.getItemMeta();
 		im.setDisplayName(ChatColor.RED + "" + ChatColor.ITALIC + "NOT READY");
 		im.setLore(Arrays.asList(ChatColor.GRAY + "Right click when you're",
@@ -55,6 +55,13 @@ public class LobbyControls implements Listener {
 	public void giveLobbyControls(Player player) {
 		player.getInventory().clear();
 		player.getInventory().setItem(0, NOT_READY_BLOCK);
+		player.getInventory().setItem(1, NOT_READY_BLOCK);
+		player.getInventory().setItem(2, NOT_READY_BLOCK);
+		player.getInventory().setItem(3, NOT_READY_BLOCK);
+		player.getInventory().setItem(4, NOT_READY_BLOCK);
+		player.getInventory().setItem(5, NOT_READY_BLOCK);
+		player.getInventory().setItem(6, NOT_READY_BLOCK);
+		player.getInventory().setItem(7, NOT_READY_BLOCK);
 		player.getInventory().setItem(8, LEAVE_LOBBY);
 	}
 	
@@ -76,11 +83,25 @@ public class LobbyControls implements Listener {
 				}.runTaskLater(MinigamesPlugin.getInstance(), 1);
 			} else if (READY_BLOCK.equals(e.getItem())){
 				lobby.setPlayerReadiness(player, false);
-				e.getPlayer().getInventory().setItem(0, NOT_READY_BLOCK);
+				player.getInventory().setItem(0, NOT_READY_BLOCK);
+				player.getInventory().setItem(1, NOT_READY_BLOCK);
+				player.getInventory().setItem(2, NOT_READY_BLOCK);
+				player.getInventory().setItem(3, NOT_READY_BLOCK);
+				player.getInventory().setItem(4, NOT_READY_BLOCK);
+				player.getInventory().setItem(5, NOT_READY_BLOCK);
+				player.getInventory().setItem(6, NOT_READY_BLOCK);
+				player.getInventory().setItem(7, NOT_READY_BLOCK);
 				e.setCancelled(true);
 			} else if (NOT_READY_BLOCK.equals(e.getItem())) {
 				lobby.setPlayerReadiness(player, true);
-				e.getPlayer().getInventory().setItem(0, READY_BLOCK);
+				player.getInventory().setItem(0, READY_BLOCK);
+				player.getInventory().setItem(1, READY_BLOCK);
+				player.getInventory().setItem(2, READY_BLOCK);
+				player.getInventory().setItem(3, READY_BLOCK);
+				player.getInventory().setItem(4, READY_BLOCK);
+				player.getInventory().setItem(5, READY_BLOCK);
+				player.getInventory().setItem(6, READY_BLOCK);
+				player.getInventory().setItem(7, READY_BLOCK);
 				e.setCancelled(true);
 				
 				lobby.startCountdownIfStartConditionsMet();
