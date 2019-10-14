@@ -63,6 +63,7 @@ public class LobbyControls implements Listener {
 		player.getInventory().setItem(6, NOT_READY_BLOCK);
 		player.getInventory().setItem(7, NOT_READY_BLOCK);
 		player.getInventory().setItem(8, LEAVE_LOBBY);
+		player.getInventory().setHeldItemSlot(0);
 	}
 	
 	@EventHandler
