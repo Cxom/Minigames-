@@ -1,5 +1,6 @@
 package net.punchtree.minigames.region;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -11,24 +12,32 @@ import com.google.common.collect.Iterators;
 
 public class MultiRegion implements Area{
 
-	private final List<Region> regions;
+	private final List<? extends Area> areas;
 	
-	public MultiRegion(List<Region> regions){
-		this.regions = regions;
+	public MultiRegion(List<? extends Area> areas){
+		this.areas = areas;
+	}
+	
+	public MultiRegion(Area... areas) {
+		this.areas = Arrays.asList(areas);
 	}
 
 	@Override
 	public boolean contains(Location l){
-		for(Region r : regions)
-			if (r.contains(l)) return true;
+		for(Area area : areas) {
+			if (area.contains(l)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
 	@Override
 	public Iterator<Block> iterator(){
 		Iterator<Block> it = Collections.emptyIterator();
-		for(Region r : regions)
-			it = Iterators.concat(it, r.iterator());
+		for(Area area : areas) {
+			it = Iterators.concat(it, area.iterator());
+		}
 		return it;
 	}
 	
