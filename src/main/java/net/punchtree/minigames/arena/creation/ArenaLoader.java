@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+
+import net.punchtree.minigames.region.Region;
+import net.punchtree.minigames.utility.color.MinigameColor;
 
 public class ArenaLoader {
 	
@@ -27,6 +31,21 @@ public class ArenaLoader {
         return name.substring(0, name.length() - 4);
 	}
 	
+	public static MinigameColor getColor(ConfigurationSection section){
+		Integer red = section.getInt("red", 255);
+		Integer green = section.getInt("green", 255);
+		Integer blue = section.getInt("blue", 255);
+		String chatcolor = section.getString("chatcolor"); 	
+		if (red == null || green == null || blue == null){
+			return null;
+		}
+		if (chatcolor == null){
+			return new MinigameColor(red, green, blue);
+		} else {
+			return new MinigameColor(red, green, blue, ChatColor.valueOf(chatcolor));
+		}
+	}
+	
 	public static <T> List<T> getList(ConfigurationSection section, Function<ConfigurationSection, T> loader) throws ClassCastException{
 		List<T> list = new ArrayList<>();
 		for(String key : section.getKeys(false)){
@@ -36,6 +55,14 @@ public class ArenaLoader {
 				e.printStackTrace();
 			}
 		}
+		return list;
+	}
+	
+	public static Location[] getLocationList(ConfigurationSection section) {
+		Location[] list = new Location[section.getKeys(false).size()];
+		int i = 0;
+		for(String key : section.getKeys(false))
+			list[i++] = (getLocation(section.getConfigurationSection(key)));
 		return list;
 	}
 	
@@ -56,6 +83,17 @@ public class ArenaLoader {
 			(float) spawnInfo.getDouble("pitch", 0),
 			(float) spawnInfo.getDouble("yaw", 0) //TODO Is 0 pitch, 0 yaw looking straight forward?
 		);
+	}
+	
+	public static Region getRegion(ConfigurationSection regionInfo){
+		return new Region(
+			getLocation(regionInfo.getConfigurationSection("min")),
+			getLocation(regionInfo.getConfigurationSection("max"))
+		);
+	}
+	
+	public static List<Region> getRegionList(ConfigurationSection section){
+		return ArenaLoader.<Region>getList(section, ArenaLoader::getRegion);
 	}
 	
 }
