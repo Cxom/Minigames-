@@ -82,22 +82,22 @@ public class PlayerProfile {
 		Player player = Bukkit.getPlayer(uuid);
 		
 		player.teleport(location); //Teleport must happen first to prevent world settings overriding stored player
+		player.getInventory().setContents(inventory);
+		player.getInventory().setArmorContents(armor);
+		player.setGlowing(glowing);
+		player.setInvulnerable(invulnerable);
+		player.setLevel(xpLvl);
+		player.setExp(xp);
+		player.setHealth(health);
+		player.setFoodLevel(hunger);
+		player.setSaturation(saturation);
+		player.setExhaustion(exhaustion);
 		
 		new BukkitRunnable() {
 			public void run() {
-				player.getInventory().setContents(inventory);
-				player.getInventory().setArmorContents(armor);
 				player.setGameMode(gamemode);
 				player.setAllowFlight(canFly);
 				player.setFlying(flying);
-				player.setGlowing(glowing);
-				player.setInvulnerable(invulnerable);
-				player.setLevel(xpLvl);
-				player.setExp(xp);
-				player.setHealth(health);
-				player.setFoodLevel(hunger);
-				player.setSaturation(saturation);
-				player.setExhaustion(exhaustion);
 			}
 		}.runTaskLater(MinigamesPlugin.getInstance(), 3);
 		
