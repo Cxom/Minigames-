@@ -161,10 +161,7 @@ public class Lobby {
 	}
 	
 	private void teleportPlayerAndSetStats(Player player){
-		PlayerProfile.save(player);
-		
-		player.teleport(getSpawn());
-
+		PlayerProfile.saveTeleportFirst(player, getSpawn());
 
 		player.setInvulnerable(true); //No PvP in the lobby
 		

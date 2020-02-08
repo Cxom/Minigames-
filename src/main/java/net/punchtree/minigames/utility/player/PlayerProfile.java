@@ -21,7 +21,17 @@ public class PlayerProfile {
 		if (isSaved(player)) {
 			throw new AssertionError("This player already has an unrecovered profile!");
 		}
-		saved.put(player.getUniqueId(), new PlayerProfile(player));
+		saved.put(player.getUniqueId(), new PlayerProfile(player, false, null));
+	}
+	
+	/** 
+	 * This teleports them to a specified location before saving their inventory
+	 * **/
+	public static void saveTeleportFirst(Player player, Location teleportLocation) {
+		if (isSaved(player)) {
+			throw new AssertionError("This player already has an unrecovered profile!");
+		}
+		saved.put(player.getUniqueId(), new PlayerProfile(player, true, teleportLocation));
 	}
 	
 	public static boolean isSaved(Player player){
@@ -59,11 +69,11 @@ public class PlayerProfile {
 	private final float saturation;
 	private final float exhaustion;
 	
-	private PlayerProfile(Player player){
+	private boolean teleportFirst;
+	
+	private PlayerProfile(Player player,  boolean teleportFirst, Location teleportLocation){
 		this.uuid = player.getUniqueId();
-		this.inventory = player.getInventory().getContents();
-		this.armor = player.getInventory().getArmorContents();
-		this.location = player.getLocation();
+		
 		this.gamemode = player.getGameMode();
 		this.canFly = player.getAllowFlight();
 		this.flying = player.isFlying();
@@ -75,15 +85,38 @@ public class PlayerProfile {
 		this.hunger = player.getFoodLevel();
 		this.saturation = player.getSaturation();
 		this.exhaustion = player.getExhaustion();
+		
+		// SAVE the location first
+		this.location = player.getLocation();
+		
+		// save the request so we know which order to restore inventory & location in
+		this.teleportFirst = teleportFirst;
+		if (teleportFirst) {
+			// teleport if asked, to save a different world inventory
+			player.teleport(teleportLocation);
+		}
+		
+		// backup inventory last
+		this.inventory = player.getInventory().getContents();
+		this.armor = player.getInventory().getArmorContents();
 		InventoryUtils.backupInventory(player);
 	}
 	
 	private void restore(){
 		Player player = Bukkit.getPlayer(uuid);
 		
-		player.teleport(location); //Teleport must happen first to prevent world settings overriding stored player
-		player.getInventory().setContents(inventory);
-		player.getInventory().setArmorContents(armor);
+		//Teleport must happen before stats to prevent world settings overriding stored player
+		// but we restore location in the reverse order as it was saved
+		if (teleportFirst) {
+			player.getInventory().setContents(inventory);
+			player.getInventory().setArmorContents(armor);
+			player.teleport(location); 
+		} else {
+			player.teleport(location); 
+			player.getInventory().setContents(inventory);
+			player.getInventory().setArmorContents(armor);
+		}
+		
 		player.setGlowing(glowing);
 		player.setInvulnerable(invulnerable);
 		player.setLevel(xpLvl);
