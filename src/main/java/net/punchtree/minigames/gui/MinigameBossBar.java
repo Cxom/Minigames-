@@ -11,7 +11,7 @@ import net.punchtree.minigames.MinigamesPlugin;
 
 public class MinigameBossBar {
 
-	private BossBar bossbar = Bukkit.createBossBar("", BarColor.WHITE, BarStyle.SOLID);
+	protected BossBar bossbar = Bukkit.createBossBar("", BarColor.WHITE, BarStyle.SOLID);
 	
 	public MinigameBossBar(){}
 	
