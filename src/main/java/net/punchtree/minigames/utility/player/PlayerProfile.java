@@ -18,9 +18,6 @@ public class PlayerProfile {
 	private static Map<UUID, PlayerProfile> saved = new HashMap<>();
 		
 	public static void save(Player player){
-		if (isSaved(player)) {
-			throw new AssertionError("This player already has an unrecovered profile!");
-		}
 		saved.put(player.getUniqueId(), new PlayerProfile(player, false, null));
 	}
 	
@@ -28,9 +25,6 @@ public class PlayerProfile {
 	 * This teleports them to a specified location before saving their inventory
 	 * **/
 	public static void saveTeleportFirst(Player player, Location teleportLocation) {
-		if (isSaved(player)) {
-			throw new AssertionError("This player already has an unrecovered profile!");
-		}
 		saved.put(player.getUniqueId(), new PlayerProfile(player, true, teleportLocation));
 	}
 	
