@@ -1,14 +1,15 @@
 package net.punchtree.minigames.gui;
 
 import org.bukkit.ChatColor;
+import org.bukkit.scoreboard.Scoreboard;
 
 import net.punchtree.minigames.game.pvp.AttackMethod;
 import net.punchtree.minigames.utility.color.ColoredPlayer;
 
 public class Killfeed extends ScrollingScoreboard {
 
-	public Killfeed(String title) {
-		super(title);
+	public Killfeed(Scoreboard scoreboard, String title) {
+		super(scoreboard, title);
 	}
 	
 	public void sendKill(ColoredPlayer killer, ColoredPlayer killed, AttackMethod attackMethod) {

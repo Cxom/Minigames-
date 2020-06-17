@@ -1,14 +1,9 @@
 package net.punchtree.minigames.gui;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -21,14 +16,13 @@ public class ScrollingScoreboard {
 
 	public static final int MAX_SCOREBOARD_LENGTH = 40;
 	
-	private Set<UUID> players = new HashSet<>();
 	private Queue<String> activeMessages = new LinkedList<>();
 	
 	private final Scoreboard scoreboard;
 	private Objective sidebar;
 	
-	public ScrollingScoreboard(String title){
-		scoreboard = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
+	public ScrollingScoreboard(Scoreboard scoreboard, String title){
+		this.scoreboard = scoreboard;
 		sidebar = scoreboard.registerNewObjective("scroller", "dummy", title);
 		sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
 	}
@@ -65,27 +59,6 @@ public class ScrollingScoreboard {
 	
 	private void clearMessage(String msg){
 		scoreboard.resetScores(msg);
-		for(UUID uuid : players){
-			Bukkit.getPlayer(uuid).setScoreboard(scoreboard);
-		}
 	}
-	
-	public void addPlayer(Player player){
-		players.add(player.getUniqueId());
-		player.setScoreboard(scoreboard);
-	}
-	
-	public void removePlayer(Player player){
-		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-		players.remove(player.getUniqueId());
-	}
-	
-	public void removeAll(){
-		for (UUID uuid : players){
-			Bukkit.getPlayer(uuid).setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-		}
-		players.clear();
-	}
-	
 	
 }
