@@ -34,7 +34,7 @@ public class Messaging {
 
 	public static final Message ERROR_ALREADY_IN_LOBBY = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "You are already in the lobby!"));
 	
-	public static final Message LOBBY_ENOUGH_PLAYERS_READY_UP = new Message(mapOf(Language.ENGLISH, ChatColor.GREEN + "Enough players in the lobby, ready up to start the countdown!"));
+	public static final Message LOBBY_ENOUGH_PLAYERS_READY_UP = new Message(mapOf(Language.ENGLISH, ChatColor.GREEN + "Enough players in the lobby, ready up to start the countdown! (%d)"));
 	
 	public static final Message LOBBY_START_CONDITIONS_NO_LONGER_MET = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "Not enough players in lobby and ready, start aborted!"));
 		

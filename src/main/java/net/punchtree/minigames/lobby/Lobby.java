@@ -156,7 +156,7 @@ public class Lobby {
 		waitingPlayers.put(player, false);
 		
 		if (enoughPlayersToStartAndWaitingAndNotReady()){
-			Messaging.broadcast(chatPrefix, getPlayers(), Messaging.LOBBY_ENOUGH_PLAYERS_READY_UP);
+			Messaging.broadcast(chatPrefix, getPlayers(), Messaging.LOBBY_ENOUGH_PLAYERS_READY_UP, getPlayers().size());
 		}
 	}
 	
