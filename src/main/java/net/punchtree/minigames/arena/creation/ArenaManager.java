@@ -76,6 +76,8 @@ public class ArenaManager<ArenaType extends Arena> {
 		
 		if(arenaFolder.listFiles() != null){
 			for (File arenaf : Arrays.asList(arenaFolder.listFiles())) {
+				if (arenaf.isDirectory()) continue;
+				
 				YamlConfiguration arena = new YamlConfiguration();
 				try {
 					arena.load(arenaf);
