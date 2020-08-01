@@ -66,7 +66,7 @@ public class CirculatingList<E> implements Iterable<E> {
 
 	@Override
 	public Iterator<E> iterator() {
-		return Iterators.concat(e.subList(i, e.size() - 1).iterator(), e.subList(0, i).iterator());
+		return Iterators.concat(e.subList(i, e.size()).iterator(), e.subList(0, i).iterator());
 	}
 	
 }
