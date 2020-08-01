@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
 
 public class Region implements Area{
 	
@@ -22,13 +19,12 @@ public class Region implements Area{
 		if (a.getWorld() != b.getWorld()){
 			throw new IllegalArgumentException("Defining points cannot be in two different worlds!");
 		}
-		min = new Location(a.getWorld(), Math.min(a.getBlockX(), b.getBlockX()), Math.min(a.getBlockY(), b.getBlockY()), Math.min(a.getBlockZ(), b.getBlockZ()));
-		max = new Location(a.getWorld(), Math.max(a.getBlockX(), b.getBlockX()), Math.max(a.getBlockY(), b.getBlockY()), Math.max(a.getBlockZ(), b.getBlockZ()));
+		min = new Location(a.getWorld(), Math.min(a.getX(), b.getX()), Math.min(a.getY(), b.getY()), Math.min(a.getZ(), b.getZ()));
+		max = new Location(a.getWorld(), Math.max(a.getX(), b.getX()), Math.max(a.getY(), b.getY()), Math.max(a.getZ(), b.getZ()));
 	}
 	
 	@Override
 	public boolean contains(Location l){
-		l=l.getBlock().getLocation();
 		return isBetween(l, min, max);
 	}
 	
