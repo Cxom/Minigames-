@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class CirculatingList<E> {
+import com.google.common.collect.Iterators;
+
+public class CirculatingList<E> implements Iterable<E> {
 
 	private List<E> e;
 	private final boolean shuffle;
@@ -49,12 +52,21 @@ public class CirculatingList<E> {
 		return e.get(i);
 	}
 	
-	private void shuffle(){
+	public void resetIterator() {
+		i = -1;
+	}
+	
+	public void shuffle(){
 		Collections.shuffle(e);
 	}
 	
 	public List<E> getList(){
 		return e;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return Iterators.concat(e.subList(i, e.size() - 1).iterator(), e.subList(0, i).iterator());
 	}
 	
 }
