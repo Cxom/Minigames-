@@ -4,11 +4,14 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -116,6 +119,25 @@ public class LobbyControls implements Listener {
 	@EventHandler
 	public void onDropReadyBlock(PlayerDropItemEvent e){
 		if (READY_BLOCK.equals(e.getItemDrop().getItemStack()) || NOT_READY_BLOCK.equals(e.getItemDrop().getItemStack())){
+			e.setCancelled(true);
+		}
+	}
+	
+	//Cancel pulling blocks out of the inventory
+	@EventHandler
+	private void onInventoryDrag(InventoryDragEvent e){
+		Player whoClicked = (Player) e.getWhoClicked();
+		// TODO change this for production
+		if(lobby.hasPlayer(whoClicked) && whoClicked.getGameMode() != GameMode.CREATIVE){
+			e.setCancelled(true);
+		}
+	}
+
+	@EventHandler
+	private void onInventoryClick(InventoryClickEvent e){
+		Player whoClicked = (Player) e.getWhoClicked();
+		// TODO change this for production
+		if(lobby.hasPlayer(whoClicked) && whoClicked.getGameMode() != GameMode.CREATIVE){
 			e.setCancelled(true);
 		}
 	}
