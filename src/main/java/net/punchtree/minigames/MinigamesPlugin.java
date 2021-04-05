@@ -1,6 +1,9 @@
 package net.punchtree.minigames;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import net.punchtree.minigames.menu.MenuListener;
 
 public class MinigamesPlugin extends JavaPlugin {
 
@@ -16,6 +19,12 @@ public class MinigamesPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		plugin = this;
+		
+		registerEvents();
+	}
+	
+	private void registerEvents() {
+		Bukkit.getPluginManager().registerEvents(MenuListener.getInstance(), this);
 	}
 	
 }

@@ -52,6 +52,7 @@ public class LobbyControls implements Listener {
 	
 	public LobbyControls(Lobby lobby) {
 		this.lobby = lobby;
+		// TODO This leaks memory (when reloading) - abstract out singleton listener
 		Bukkit.getServer().getPluginManager().registerEvents(this, MinigamesPlugin.getInstance());
 	}
 	
