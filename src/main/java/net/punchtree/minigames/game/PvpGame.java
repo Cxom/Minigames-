@@ -22,4 +22,6 @@ public interface PvpGame {
 	
 	public Arena getArena();
 	
+	public void interruptAndShutdown();
+	
 }
