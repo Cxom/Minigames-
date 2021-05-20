@@ -12,6 +12,7 @@ import net.punchtree.minigames.MinigamesPlugin;
 public class MinigameBossBar {
 
 	protected BossBar bossbar = Bukkit.createBossBar("", BarColor.WHITE, BarStyle.SOLID);
+	protected static final int FLASH_COLOR_DURATION = 6;
 	
 	public MinigameBossBar(){}
 	
@@ -47,7 +48,7 @@ public class MinigameBossBar {
 				}
 				i--;
 			}
-		}.runTaskTimer(MinigamesPlugin.getInstance(), 0, 6);
+		}.runTaskTimer(MinigamesPlugin.getInstance(), 0, FLASH_COLOR_DURATION);
 	}
 	
 	public void reset() {

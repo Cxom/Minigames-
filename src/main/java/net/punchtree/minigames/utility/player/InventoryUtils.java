@@ -1,7 +1,5 @@
 package net.punchtree.minigames.utility.player;
 
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +20,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import net.punchtree.minigames.MinigamesPlugin;
-import net.punchtree.minigames.utility.color.MinigameColor;
+import net.punchtree.util.color.PunchTreeColor;
 
 public class InventoryUtils {
 
-	private static File inventoryFile = new File(MinigamesPlugin.getInstance().getDataFolderPath()
-			+ File.separator + "inventories.yml");
-	
+	private static File inventoryFile = new File(
+			MinigamesPlugin.getInstance().getDataFolderPath() + File.separator + "inventories.yml");
+
 	private static FileConfiguration inventoryBackups;
 	static {
 		inventoryBackups = new YamlConfiguration();
@@ -38,19 +36,20 @@ public class InventoryUtils {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static void restoreBackupInventory(UUID uuid, Player player){
-		if (inventoryBackups.isConfigurationSection(uuid.toString())){
-			List<Map<String, Object>> serializedContents = (List<Map<String, Object>>) inventoryBackups.get(uuid.toString() + ".inventory");
+	public static void restoreBackupInventory(UUID uuid, Player player) {
+		if (inventoryBackups.isConfigurationSection(uuid.toString())) {
+			List<Map<String, Object>> serializedContents = (List<Map<String, Object>>) inventoryBackups
+					.get(uuid.toString() + ".inventory");
 			ItemStack[] contents = new ItemStack[36];
 			for (int i = 0; i < serializedContents.size(); i++)
 				contents[i] = ItemStack.deserialize(serializedContents.get(i));
 			player.getInventory().setContents(contents);
 		}
 	}
-	
-	public static void backupInventory(Player player){
+
+	public static void backupInventory(Player player) {
 		List<Map<String, Object>> serializedContents = new ArrayList<>();
 		for (ItemStack is : player.getInventory().getContents())
 			if (is == null)
@@ -64,8 +63,8 @@ public class InventoryUtils {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void equipPlayer(Player player, MinigameColor color) {
+
+	public static void equipPlayer(Player player, PunchTreeColor color) {
 		PlayerInventory pi = player.getInventory();
 		pi.setItem(0, makeUnbreakable(new ItemStack(Material.STONE_SWORD)));
 		ItemStack b = makeUnbreakable(new ItemStack(Material.BOW));
@@ -76,8 +75,8 @@ public class InventoryUtils {
 		pi.setItem(9, new ItemStack(Material.ARROW));
 		pi.setArmorContents(getArmorSet(color));
 	}
-	
-	public static ItemStack[] getArmorSet(MinigameColor color){
+
+	public static ItemStack[] getArmorSet(PunchTreeColor color) {
 		Color armorColor = color.getBukkitColor();
 
 		ItemStack helmetItem = new ItemStack(Material.LEATHER_HELMET);
@@ -106,12 +105,12 @@ public class InventoryUtils {
 
 		return new ItemStack[] { bootsItem, leggingsItem, chestplateItem, helmetItem };
 	}
-	
-	public static ItemStack makeUnbreakable(ItemStack i){
+
+	public static ItemStack makeUnbreakable(ItemStack i) {
 		ItemMeta m = i.getItemMeta();
 		m.setUnbreakable(true);
 		i.setItemMeta(m);
 		return i;
 	}
-	
+
 }

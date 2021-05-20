@@ -12,7 +12,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
 import net.punchtree.minigames.region.Region;
-import net.punchtree.minigames.utility.color.MinigameColor;
+import net.punchtree.util.color.PunchTreeColor;
 
 public class ArenaLoader {
 	
@@ -31,7 +31,7 @@ public class ArenaLoader {
         return name.substring(0, name.length() - 4);
 	}
 	
-	public static MinigameColor getColor(ConfigurationSection section){
+	public static PunchTreeColor getColor(ConfigurationSection section){
 		Integer red = section.getInt("red", 255);
 		Integer green = section.getInt("green", 255);
 		Integer blue = section.getInt("blue", 255);
@@ -40,9 +40,9 @@ public class ArenaLoader {
 			return null;
 		}
 		if (chatcolor == null){
-			return new MinigameColor(red, green, blue);
+			return new PunchTreeColor(red, green, blue);
 		} else {
-			return new MinigameColor(red, green, blue, ChatColor.valueOf(chatcolor));
+			return new PunchTreeColor(red, green, blue, ChatColor.valueOf(chatcolor));
 		}
 	}
 	

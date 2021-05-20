@@ -12,16 +12,16 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import net.punchtree.minigames.MinigamesPlugin;
-import net.punchtree.minigames.utility.color.MinigameColor;
+import net.punchtree.util.color.PunchTreeColor;
 
 public class FireworkUtils {
 
-	public static Firework spawnFirework(Location loc, MinigameColor color, int power){ return spawnFirework(loc, color.getBukkitColor(), power); }
+	public static Firework spawnFirework(Location loc, PunchTreeColor color, int power){ return spawnFirework(loc, color.getBukkitColor(), power); }
 	public static Firework spawnFirework(Location loc, Color color, int power){
 		return spawnFirework(loc, color, Color.fromRGB(Math.min(color.getRed() + 50,  255), Math.min(color.getGreen() + 50, 255), Math.min(color.getBlue() + 50, 255)), power);
 	}
 	
-	public static Firework spawnFirework(Location loc, MinigameColor primary, MinigameColor secondary, int power){ return spawnFirework(loc, primary.getBukkitColor(), secondary.getBukkitColor(), power); }
+	public static Firework spawnFirework(Location loc, PunchTreeColor primary, PunchTreeColor secondary, int power){ return spawnFirework(loc, primary.getBukkitColor(), secondary.getBukkitColor(), power); }
 	public static Firework spawnFirework(Location loc, Color primary, Color secondary, int power){
 		Firework fw = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
 		FireworkMeta fwm = fw.getFireworkMeta();
