@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 
 public enum AttackMethod{
 	
-	SLAY("⚔"),
-	SHOOT("➵"),
-	PUNCH("ლ");//ᕗ
+	SLAY("🗡"),
+	SHOOT("🏹"),
+	PUNCH("ლ");
 	//ツ 
-	
+
 	private final String icon;
 	
 	private AttackMethod(String icon){
