@@ -1,6 +1,17 @@
 # PunchTree-Minigames
-This repository holds common code and libraries underlying a suite of PvP minigames implemented in Minecraft. 
-The only additionally extracted library is the [movement library](https://github.com/Cxom/Movement-), due to inclusion of some aspects of it in non-minigame modules.
+This repository holds common code and libraries underlying a suite of PvP minigames implemented in Minecraft.
+
+Specifically, this repository holds minigame-related code that is not (yet) additionally useful outside of concrete minigame implementations.  
+- The augmented [movement library](https://github.com/Cxom/Movement-) is separated due to it's usefulness/inclusion in some non-minigame modules.  
+- The [PunchTree-Util](https://github.com/Cxom/PunchTreeUtil) library contains generic Minecraft utility code useful across all projects.
+
+The main responsibilities of the shared code include:
+- Parameterized minigame lifecycle management classes
+- Minigame lobbies
+- Minigame UI elements and utilities (killfeeds, leaderboards, banners)
+- Arena management and basic modeling and utilities for reading/writing arenas to YAML files
+- Menu-based UIs for finding and joining lobbies and running games
+- Additional utilities for common tasks, particularly around handling the base Minecraft player (preserving out-of-game player state, preserving inventory, equipping armor, etc)
 
 Current minigames are:
 
@@ -19,5 +30,5 @@ Repositories under the PunchTree-Minigames umbrella currently are:
 * [Melee](https://github.com/Cxom/Melee2) - Contains Melee and Rabbit code. The oldest codebase and has a lot of refactoring still left to do.
 * [Jailbreak](https://github.com/Cxom/Jailbreak3) 
 * [Battle](https://github.com/Cxom/Battle) 
-* [Siege](https://github.com/Cxom/Siege) - (Still under development - not currently playable)
-* [BeachWars](https://github.com/Cxom/BeachWars) - (Developed to experimentally playable - alpha, not currently being worked on)
+* [Siege](https://github.com/Cxom/Siege) - (Still under (active) development - not currently playable, but nearly)
+* [BeachWars](https://github.com/Cxom/BeachWars) - (Developed to experimentally playable - alpha, not currently being worked on further)
