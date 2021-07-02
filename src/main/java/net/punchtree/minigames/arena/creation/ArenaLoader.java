@@ -58,6 +58,8 @@ public class ArenaLoader {
 		return list;
 	}
 	
+	
+	
 	public static Location[] getLocationList(ConfigurationSection section) {
 		Location[] list = new Location[section.getKeys(false).size()];
 		int i = 0;
@@ -94,6 +96,40 @@ public class ArenaLoader {
 	
 	public static List<Region> getRegionList(ConfigurationSection section){
 		return ArenaLoader.<Region>getList(section, ArenaLoader::getRegion);
+	}
+	
+	public static Location[] getRelativeLocationList(ConfigurationSection section, Location relative) {
+		Location[] list = new Location[section.getKeys(false).size()];
+		int i = 0;
+		for(String key : section.getKeys(false))
+			list[i++] = (getRelativeLocation(section.getConfigurationSection(key), relative));
+		return list;
+	}
+	
+	public static Location getRelativeLocation(ConfigurationSection locationInfo, Location relative){
+		return getRelativeLocation(locationInfo, relative, getRootWorld(locationInfo));
+	}
+	
+	public static Location getRelativeLocation(ConfigurationSection locationInfo, Location relative, World world){
+		return new Location(
+			world,
+			relative.getX() + locationInfo.getDouble("x"),
+			relative.getY() + locationInfo.getDouble("y"),
+			relative.getZ() + locationInfo.getDouble("z"),
+			(float) locationInfo.getDouble("pitch", 0),
+			(float) locationInfo.getDouble("yaw", 0) //TODO Is 0 pitch, 0 yaw looking straight forward?
+		);
+	}
+	
+	public static Region getRelativeRegion(ConfigurationSection regionInfo, Location relative){
+		return new Region(
+			getRelativeLocation(regionInfo.getConfigurationSection("min"), relative),
+			getRelativeLocation(regionInfo.getConfigurationSection("max"), relative)
+		);
+	}
+	
+	public static List<Region> getRelativeRegionList(ConfigurationSection section, Location relative){
+		return ArenaLoader.<Region>getList(section, configSec -> ArenaLoader.getRelativeRegion(configSec, relative));
 	}
 	
 }
