@@ -4,3 +4,7 @@ version: 0.4
 api-version: 1.16
 depend: [PunchTreeUtil]
 description: Common code and series of libraries for creating PvP minigames in Minecraft
+
+commands:
+   ## This defined here allows it not being red, and being used in lobbies (in addition to all preprocessing in minigame impls)
+   leave:
