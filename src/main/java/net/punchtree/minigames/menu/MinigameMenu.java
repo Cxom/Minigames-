@@ -32,7 +32,7 @@ public class MinigameMenu implements Menu {
 		this.menuName = menuName;
 		this.lobbies = new ArrayList<Lobby>(lobbies);
 		
-		this.menu = Bukkit.createInventory(null, (lobbies.size() / 9 + 1) * 9, menuName); 
+		this.menu = Bukkit.createInventory(null, ((int) Math.ceil(lobbies.size() / 9.)) * 9, menuName); 
 		constructMenu();
 		
 		// TODO finish figuring this out
