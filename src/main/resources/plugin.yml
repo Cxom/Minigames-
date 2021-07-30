@@ -1,8 +1,8 @@
 name: PunchTree-Minigames
 main: net.punchtree.minigames.MinigamesPlugin
 version: 0.4
-api-version: 1.16
-depend: [PunchTreeUtil]
+api-version: 1.17
+depend: [PunchTree-Util]
 description: Common code and series of libraries for creating PvP minigames in Minecraft
 
 commands:
