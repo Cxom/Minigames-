@@ -12,8 +12,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -139,6 +141,19 @@ public class LobbyControls implements Listener {
 		Player whoClicked = (Player) e.getWhoClicked();
 		// TODO change this for production
 		if(lobby.hasPlayer(whoClicked) && whoClicked.getGameMode() != GameMode.CREATIVE){
+			e.setCancelled(true);
+		}
+	}
+
+	@EventHandler
+	private void onPlayerLeaveServer(PlayerQuitEvent e) {
+		lobby.removeAndRestorePlayer(e.getPlayer());
+	}
+
+	@EventHandler
+	private void onLeaveCommand(PlayerCommandPreprocessEvent e) {
+		if (e.getMessage().toLowerCase().startsWith("/leave") && lobby.hasPlayer(e.getPlayer())) {
+			lobby.removeAndRestorePlayer(e.getPlayer());
 			e.setCancelled(true);
 		}
 	}
