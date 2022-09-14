@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
-import net.punchtree.minigames.game.PvpGame;
 import net.punchtree.minigames.lobby.Lobby;
 import net.punchtree.minigames.menu.MinigameMenu;
 
@@ -41,6 +40,7 @@ public class GameManager<GameType extends PvpGame> {
 		// why? I have no idea. Probably because static (static in a previous gamemanager class probably was what this initially referred to?)
 		// TODO try to take away the = null line after this class because instance-based
 		games.clear();
+		lobbies.values().forEach(Lobby::removeAndRestoreAll);
 		lobbies.clear();
 		menu = null;
 	}
