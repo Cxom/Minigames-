@@ -125,6 +125,14 @@ public class PlayerProfile {
 				player.setGameMode(gamemode);
 				player.setAllowFlight(canFly);
 				player.setFlying(flying);
+				player.setGlowing(glowing);
+		        player.setInvulnerable(invulnerable);
+		        player.setLevel(xpLvl);
+		        player.setExp(xp);
+		        player.setHealth(health);
+		        player.setFoodLevel(hunger);
+		        player.setSaturation(saturation);
+		        player.setExhaustion(exhaustion);
 			}
 		}.runTaskLater(MinigamesPlugin.getInstance(), 3);
 		

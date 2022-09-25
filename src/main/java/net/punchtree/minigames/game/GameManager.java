@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
-import net.punchtree.minigames.lobby.Lobby;
+import net.punchtree.minigames.lobby.PerMapLegacyLobby;
 import net.punchtree.minigames.menu.MinigameMenu;
 
 public class GameManager<GameType extends PvpGame> {
@@ -16,8 +16,8 @@ public class GameManager<GameType extends PvpGame> {
 	public GameType getGame(String game) { return games.get(game); }
 	
 	//In practice, Lobbies to Games are 1-to-1, but in theory, this is not true.
-	private Map<String, Lobby> lobbies = new HashMap<>();
-	public Lobby getLobby(String lobby) { return lobbies.get(lobby); }
+	private Map<String, PerMapLegacyLobby> lobbies = new HashMap<>();
+	public PerMapLegacyLobby getLobby(String lobby) { return lobbies.get(lobby); }
 	
 	private final String menuName;
 	private MinigameMenu menu;
@@ -28,7 +28,7 @@ public class GameManager<GameType extends PvpGame> {
 	
 	/*****************************************/
 	
-	public void addGame(String name, GameType game, Lobby lobby) {
+	public void addGame(String name, GameType game, PerMapLegacyLobby lobby) {
 		games.put(name, game);
 		lobbies.put(name, lobby);
 	}
@@ -40,7 +40,7 @@ public class GameManager<GameType extends PvpGame> {
 		// why? I have no idea. Probably because static (static in a previous gamemanager class probably was what this initially referred to?)
 		// TODO try to take away the = null line after this class because instance-based
 		games.clear();
-		lobbies.values().forEach(Lobby::removeAndRestoreAll);
+		lobbies.values().forEach(PerMapLegacyLobby::removeAndRestoreAll);
 		lobbies.clear();
 		menu = null;
 	}
@@ -67,7 +67,7 @@ public class GameManager<GameType extends PvpGame> {
 		return lobbies.containsKey(lobby);
 	}
 	
-	public Collection<Lobby> getLobbyList(){
+	public Collection<PerMapLegacyLobby> getLobbyList(){
 		return lobbies.values();
 	}
 	

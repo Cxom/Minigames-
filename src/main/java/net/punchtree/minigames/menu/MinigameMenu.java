@@ -18,19 +18,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.punchtree.minigames.MinigamesPlugin;
 import net.punchtree.minigames.game.GameState;
 import net.punchtree.minigames.game.PvpGame;
-import net.punchtree.minigames.lobby.Lobby;
+import net.punchtree.minigames.lobby.PerMapLegacyLobby;
 
 public class MinigameMenu implements Menu {
 	
 	private final String menuName;
-	private List<Lobby> lobbies;
+	private List<PerMapLegacyLobby> lobbies;
 	
 	private final Inventory menu;
 	
-	public MinigameMenu(String menuName, Collection<Lobby> lobbies) {
+	public MinigameMenu(String menuName, Collection<PerMapLegacyLobby> lobbies) {
 		//this.gameManager = gameManager;
 		this.menuName = menuName;
-		this.lobbies = new ArrayList<Lobby>(lobbies);
+		this.lobbies = new ArrayList<PerMapLegacyLobby>(lobbies);
 		
 		this.menu = Bukkit.createInventory(null, ((int) Math.ceil(lobbies.size() / 9.)) * 9, menuName); 
 		constructMenu();
@@ -44,7 +44,7 @@ public class MinigameMenu implements Menu {
 	private void constructMenu(){
 		
 		int slotIndex = 0;
-		for (Lobby lobby : lobbies){
+		for (PerMapLegacyLobby lobby : lobbies){
 			PvpGame game = lobby.getGame();
 			
 			ItemStack gameMarker = game.getGameState().getMenuItem();
@@ -83,7 +83,7 @@ public class MinigameMenu implements Menu {
 				Player playerToAdd = (Player) e.getWhoClicked();
 				
 				if (clickedOnLobby(e)) {
-					Lobby lobbyToAddTo = getClickedLobby(e);
+					PerMapLegacyLobby lobbyToAddTo = getClickedLobby(e);
 					lobbyToAddTo.addPlayerIfPossible(playerToAdd);
 				}
 				
@@ -104,7 +104,7 @@ public class MinigameMenu implements Menu {
 		return e.getSlot() < lobbies.size();
 	}
 	
-	private Lobby getClickedLobby(InventoryClickEvent e) {
+	private PerMapLegacyLobby getClickedLobby(InventoryClickEvent e) {
 		return lobbies.get(e.getSlot());
 	}
 	

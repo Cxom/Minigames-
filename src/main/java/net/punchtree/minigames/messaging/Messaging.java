@@ -36,7 +36,9 @@ public class Messaging {
 	
 	public static final Message LOBBY_ENOUGH_PLAYERS_READY_UP = new Message(mapOf(Language.ENGLISH, ChatColor.GREEN + "Enough players in the lobby, ready up to start the countdown! (%d)"));
 	
-	public static final Message LOBBY_START_CONDITIONS_NO_LONGER_MET = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "Not enough players in lobby and ready, start aborted!"));
+	public static final Message LOBBY_START_CONDITIONS_READY_NO_LONGER_MET = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "Not enough players in lobby and ready, start aborted!"));
+
+	public static final Message NOT_ENOUGH_PLAYERS_STOPPING_COUNTDOWN = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "Not enough players, stopping countdown!"));
 		
 	// First parameter - lobby name
 	public static final Message LOBBY_REMOVING_YOU_FROM = new Message(mapOf(Language.ENGLISH, ChatColor.RED + "" + ChatColor.ITALIC + "Removing you from %s lobby . . ."));
@@ -45,6 +47,10 @@ public class Messaging {
 	
 	public static void MATCH_STARTING_IN(String chatPrefix, Player player, int seconds, String arenaName) {
 		player.sendMessage(chatPrefix + ChatColor.GOLD + "Match starting in " + seconds + " second(s) on " + arenaName + "!");
+	}
+	
+	public static void MATCH_STARTING_IN(String chatPrefix, Player player, int seconds) {
+		player.sendMessage(chatPrefix + ChatColor.GOLD + "Match starting in " + seconds + " second" + (seconds == 1 ? "" : "s") + "!");
 	}
 	
 	private static Map<Language, String> mapOf(Language l, String s){

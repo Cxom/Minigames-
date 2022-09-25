@@ -50,9 +50,9 @@ public class LobbyControls implements Listener {
 		LEAVE_LOBBY.setItemMeta(im);
 	}
 	
-	private final Lobby lobby;
+	private final PerMapLegacyLobby lobby;
 	
-	public LobbyControls(Lobby lobby) {
+	public LobbyControls(PerMapLegacyLobby lobby) {
 		this.lobby = lobby;
 		// TODO This leaks memory (when reloading) - abstract out singleton listener
 		Bukkit.getServer().getPluginManager().registerEvents(this, MinigamesPlugin.getInstance());

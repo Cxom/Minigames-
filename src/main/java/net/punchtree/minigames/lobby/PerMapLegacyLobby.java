@@ -17,7 +17,7 @@ import net.punchtree.minigames.messaging.Messaging;
 import net.punchtree.minigames.utility.player.PlayerProfile;
 import net.punchtree.minigames.utility.player.PlayerUtils;
 
-public class Lobby {
+public class PerMapLegacyLobby {
 	
 //	public enum LobbyState {
 //		WAITING(ChatColor.GREEN, new ItemStack(Material.CONCRETE, 1 , (short) 5)),
@@ -47,7 +47,7 @@ public class Lobby {
 	private final PvpGame game;
 	private final Location lobbySpawn;
 	private final int playersNeededToStart;
-	private final Consumer<Set<Player>> startMethod;
+	private final Consumer<Player> onPlayerLeaveLobbyOrGame;
 	
 	//TODO get rid of this very soon
 	private final String chatPrefix;
@@ -60,21 +60,21 @@ public class Lobby {
 	
 //	private LobbyState lobbyState = LobbyState.UNAVAILABLE;
 	
-	public Lobby(PvpGame game, Consumer<Set<Player>> startMethod, String chatPrefix) {
+	public PerMapLegacyLobby(PvpGame game, Consumer<Player> onPlayerLeaveLobbyOrGame, String chatPrefix) {
 		this(game.getName() + " on " + game.getArena().getName(),
 			 game,
 			 game.getArena().getPregameLobby(),
 			 game.getArena().getPlayersNeededToStart(),
-			 startMethod,
+			 onPlayerLeaveLobbyOrGame,
 			 chatPrefix);
 	}
 	
-	private Lobby(String lobbyName, PvpGame game, Location lobbySpawn, int playersToStart, Consumer<Set<Player>> startMethod, String chatPrefix){
+	private PerMapLegacyLobby(String lobbyName, PvpGame game, Location lobbySpawn, int playersToStart, Consumer<Player> onPlayerLeaveLobbyOrGame, String chatPrefix){
 		this.lobbyName = lobbyName;
 		this.game = game;
 		this.lobbySpawn = lobbySpawn;
 		this.playersNeededToStart = playersToStart;
-		this.startMethod = startMethod;
+		this.onPlayerLeaveLobbyOrGame = onPlayerLeaveLobbyOrGame;
 		
 		this.chatPrefix = chatPrefix;
 		
@@ -233,7 +233,7 @@ public class Lobby {
 				if (startConditionsMet()) {
 					startNow();
 				} else {
-					Messaging.broadcast(chatPrefix, getPlayers(), Messaging.LOBBY_START_CONDITIONS_NO_LONGER_MET);
+					Messaging.broadcast(chatPrefix, getPlayers(), Messaging.LOBBY_START_CONDITIONS_READY_NO_LONGER_MET);
 				}
 				
 				isCountingDown = false;
@@ -243,7 +243,7 @@ public class Lobby {
 	}
 	
 	public void startNow(){
-		startMethod.accept(getPlayers());
+		game.startGame(getPlayers(), onPlayerLeaveLobbyOrGame);
 		removeAll();
 	}
 	
