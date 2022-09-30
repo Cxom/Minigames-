@@ -4,22 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import net.punchtree.minigames.game.PvpGame;
 
 public class Matchmaker {
 	
+	String name;
 	List<PvpGame> possibleMatches;
 	Consumer<Player> onPlayerLeaveLobbyOrGame;
 	List<MatchmakingLobbyWithVoting> lobbies = new ArrayList<>();
 	
-	public Matchmaker(List<PvpGame> possibleMatches, Consumer<Player> onPlayerLeaveLobbyOrGame) {
+	public Matchmaker(String name, List<PvpGame> possibleMatches, Consumer<Player> onPlayerLeaveLobbyOrGame) {
+		this.name = name;
 		this.possibleMatches = possibleMatches;
 		this.onPlayerLeaveLobbyOrGame = onPlayerLeaveLobbyOrGame;
 	}
 	
 	public boolean findLobbyFor(Player player) {
+		player.sendMessage(ChatColor.GOLD + "Matchmaking (" + name + ") for player " + player.getName() + " - currently " + lobbies.size() + " lobb" + (lobbies.size() == 1 ? "y" : "ies"));
 		for(MatchmakingLobbyWithVoting lobby : lobbies) {
 			if (!lobby.isFull()) {
 				boolean success = lobby.addPlayerIfPossible(player);
@@ -29,6 +33,7 @@ public class Matchmaker {
 				return success;
 			}
 		}
+		player.sendMessage(ChatColor.GOLD + "Creating a new lobby...");
 		MatchmakingLobbyWithVoting lobby = createNewLobby();
 		boolean success = lobby.addPlayerIfPossible(player);
 		if (!success) {
@@ -44,9 +49,9 @@ public class Matchmaker {
 		return newLobby;
 	}
 	
-	private static int lobbyCounter = 1;
+	private int lobbyCounter = 1;
 	private String getNextLobbyName() {
-		String lobbyName = "Voting Lobby " + lobbyCounter;
+		String lobbyName = "Voting Lobby " + name + " " + lobbyCounter;
 		++lobbyCounter;
 		return lobbyName;
 	}
