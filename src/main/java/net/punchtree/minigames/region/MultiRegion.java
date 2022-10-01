@@ -40,5 +40,8 @@ public class MultiRegion implements Area{
 		}
 		return it;
 	}
-	
+
+	List<? extends Area> getComponentAreas() {
+		return areas;
+	}
 }

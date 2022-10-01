@@ -9,7 +9,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class Region implements Area{
+public class Region implements Area {
 	
 	Location min;
 	Location max;
