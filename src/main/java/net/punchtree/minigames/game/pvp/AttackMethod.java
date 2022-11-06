@@ -9,7 +9,8 @@ public enum AttackMethod{
 	
 	SLAY("🗡"),
 	SHOOT("🏹"),
-	PUNCH("ლ");
+	PUNCH("ლ"),
+	UNKNOWN("?");
 	//ツ 
 
 	private final String icon;
@@ -25,11 +26,12 @@ public enum AttackMethod{
 	public static AttackMethod getAttackMethod(Entity damager){
 		if (damager instanceof Arrow)
 			return AttackMethod.SHOOT;
-		else if (damager instanceof Player && 
-				((Player) damager).getInventory().getItemInMainHand().getType() == Material.STONE_SWORD)
-			return AttackMethod.SLAY;
-		else
-			return AttackMethod.PUNCH;
+		else if (damager instanceof Player player)
+			if (player.getInventory().getItemInMainHand().getType() == Material.STONE_SWORD)
+				return AttackMethod.SLAY;
+			else if (player.getInventory().getItemInMainHand().getType() == Material.AIR || player.getInventory().getItemInMainHand().getType() == Material.BOW)
+				return AttackMethod.PUNCH;
+		return AttackMethod.UNKNOWN;
 	}
 	
 }
