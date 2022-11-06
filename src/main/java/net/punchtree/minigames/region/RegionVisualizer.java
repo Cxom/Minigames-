@@ -45,6 +45,8 @@ public class RegionVisualizer {
                     this.cancel();
                     return;
                 }
+
+                //cube lines
                 drawLine(min, minX, color);
                 drawLine(min, minY, color);
                 drawLine(min, minZ, color);
@@ -59,6 +61,15 @@ public class RegionVisualizer {
 
                 drawLine(minX, maxY, color);
                 drawLine(minZ, maxY, color);
+
+                // diag lines
+                drawLine(min, maxX, color);
+                drawLine(min, maxY, color);
+                drawLine(min, maxZ, color);
+                drawLine(max, minX, color);
+                drawLine(max, minY, color);
+                drawLine(max, minZ, color);
+
                 ++i;
             }
         }.runTaskTimer(MinigamesPlugin.getInstance(), 0, 1);
