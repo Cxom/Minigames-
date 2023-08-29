@@ -31,8 +31,9 @@ public class MinigameMenu implements Menu {
 		//this.gameManager = gameManager;
 		this.menuName = menuName;
 		this.lobbies = new ArrayList<PerMapLegacyLobby>(lobbies);
-		
-		this.menu = Bukkit.createInventory(null, ((int) Math.ceil(lobbies.size() / 9.)) * 9, menuName); 
+
+		int inventoryRows = Math.min(6, Math.max(1, (int) Math.ceil(lobbies.size() / 9.)));
+		this.menu = Bukkit.createInventory(null, inventoryRows * 9, menuName);
 		constructMenu();
 		
 		// TODO finish figuring this out
@@ -58,6 +59,10 @@ public class MinigameMenu implements Menu {
 			menu.setItem(slotIndex, gameMarker);
 			
 			slotIndex++;
+			if (slotIndex >= 54) {
+				Bukkit.getLogger().severe(ChatColor.RED + "Too many games to display in menu! (iteration limit)");
+				break;
+			}
 		}
 	}
 	
