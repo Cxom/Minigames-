@@ -5,10 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 import net.punchtree.minigames.MinigamesPlugin;
 
@@ -23,7 +20,7 @@ public class ScrollingScoreboard {
 	
 	public ScrollingScoreboard(Scoreboard scoreboard, String title){
 		this.scoreboard = scoreboard;
-		sidebar = scoreboard.registerNewObjective("scroller", "dummy", title);
+		sidebar = scoreboard.registerNewObjective("scroller", Criteria.DUMMY, title);
 		sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
 	}
 
