@@ -1,6 +1,15 @@
 /bin/
 /target/
 
+### Gradle ###
+.gradle
+.gradle/
+.idea/gradle.xml
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
 ### Eclipse (it can actually be a good idea to commit this if using eclipse but we're not) ###
 .classpath
 .project
@@ -13,3 +22,5 @@
 .idea/libraries/
 .idea/uiDesigner.xml
 *.iml
+.gradle/file-system.probe
+.gradle/file-system.probe
